@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ClientPlayerEntity.class)
 public class ClientPlayerEntityMixin {
 
-    private static final int CHEST_INDEX = 6;
+    private static final int CHESTPLATE_INDEX = 6;
     private int lastIndex = -1;
 
     @Inject(method = "tickMovement", at = @At(
@@ -39,9 +39,9 @@ public class ClientPlayerEntityMixin {
         var player = (ClientPlayerEntity) (Object) this;
         var interactionManager = MinecraftClient.getInstance().interactionManager;
         if (player.isOnGround() || player.isTouchingWater()) {
-            player.stopFallFlying();
+            player.checkFallFlying();
             if (this.lastIndex != -1) {
-                interactionManager.clickSlot(player.playerScreenHandler.syncId, CHEST_INDEX, lastIndex, SlotActionType.SWAP, player);
+                interactionManager.clickSlot(player.playerScreenHandler.syncId, CHESTPLATE_INDEX, lastIndex, SlotActionType.SWAP, player);
                 lastIndex = -1;
             }
         }
@@ -51,7 +51,7 @@ public class ClientPlayerEntityMixin {
         int firstElytraIndex = this.getElytraIndex(player);
         if (firstElytraIndex != -1) {
             this.lastIndex = firstElytraIndex;
-            interactionManager.clickSlot(player.playerScreenHandler.syncId, CHEST_INDEX, firstElytraIndex, SlotActionType.SWAP, player);
+            interactionManager.clickSlot(player.playerScreenHandler.syncId, CHESTPLATE_INDEX, firstElytraIndex, SlotActionType.SWAP, player);
             // Send packet so server knows player is falling
             player.networkHandler.sendPacket(new ClientCommandC2SPacket(player, ClientCommandC2SPacket.Mode.START_FALL_FLYING));
         }

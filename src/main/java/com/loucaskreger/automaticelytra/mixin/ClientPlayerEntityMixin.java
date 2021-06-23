@@ -6,6 +6,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Items;
+import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
 import net.minecraft.screen.slot.SlotActionType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,7 +27,7 @@ public class ClientPlayerEntityMixin {
         var player = (ClientPlayerEntity) (Object) this;
         var interactionManager = MinecraftClient.getInstance().interactionManager;
         // Injects when the elytra should be deployed
-        if (!player.isOnGround() && !player.isFallFlying() && !player.isTouchingWater() && !player.hasStatusEffect(StatusEffects.LEVITATION)) {
+        if (!player.isOnGround() && !player.isFallFlying() && !player.hasStatusEffect(StatusEffects.LEVITATION)) {
             // [Future] Replace with an event that fires before elytra take off.
             this.equipElytra(player, interactionManager);
         }
@@ -51,12 +52,12 @@ public class ClientPlayerEntityMixin {
         if (firstElytraIndex != -1) {
             this.lastIndex = firstElytraIndex;
             interactionManager.clickSlot(player.playerScreenHandler.syncId, CHEST_INDEX, firstElytraIndex, SlotActionType.SWAP, player);
-            player.startFallFlying();
+            // Send packet so server knows player is falling
+            player.networkHandler.sendPacket(new ClientCommandC2SPacket(player, ClientCommandC2SPacket.Mode.START_FALL_FLYING));
         }
     }
 
     /**
-     *
      * @param player The player
      * @return the first index of an elytra in the specified player's inventory
      */

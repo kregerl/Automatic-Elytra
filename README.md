@@ -4,7 +4,7 @@ The player simply has to have an elytra in their inventory and when they try to 
 The chestplate that was swapped out with the elytra will be re-equiped when the player touches the ground or water. 
 
 ![Automatic Elytra](https://media.giphy.com/media/J2WpOrRKuEsjp2rjT3/giphy.gif)  
-![Armor Hotswap](https://media.giphy.com/media/vKDDp1dh0fTNdMtLEM/giphy.gif)  
+![Armor Hotswap](https://media.giphy.com/media/J2WpOrRKuEsjp2rjT3/giphy.gif)  
 
 
 

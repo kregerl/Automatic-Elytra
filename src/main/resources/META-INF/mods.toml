@@ -1,0 +1,25 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="MIT"
+[[mods]]
+    modId="automaticelytra"
+    version="1.0"
+    displayName="Automatic Elytra"
+    logoFile="AutomaticElytraLogo.png"
+    authors="AreUThreateningMe"
+    description='''
+Automatic Elytra is a client side mod that will swap the players elytra and chestplate for them!
+'''
+[[dependencies.automaticelytra]]
+    modId="forge"
+    mandatory=true
+    versionRange="[36,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.automaticelytra]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5,1.17)"
+    ordering="NONE"
+    side="BOTH"

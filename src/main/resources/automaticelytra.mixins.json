@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.loucaskreger.automaticelytra.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "automaticelytra.refmap.json",
+  "mixins": [
+    "ClientPlayerEntityMixin"
+  ],
+  "minVersion": "0.8"
+
+}

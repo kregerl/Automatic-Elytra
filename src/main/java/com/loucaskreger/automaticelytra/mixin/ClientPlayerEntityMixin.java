@@ -27,7 +27,7 @@ public class ClientPlayerEntityMixin {
         var player = (ClientPlayerEntity) (Object) this;
         var interactionManager = MinecraftClient.getInstance().interactionManager;
         // Injects when the elytra should be deployed
-        if (!player.isOnGround() && !player.isFallFlying() && !player.hasStatusEffect(StatusEffects.LEVITATION)) {
+        if (!player.isOnGround() && !player.isFallFlying() && !player.hasStatusEffect(StatusEffects.LEVITATION) && player.getInventory().armor.get(2).getItem() != Items.ELYTRA) {
             // [Future] Replace with an event that fires before elytra take off.
             this.equipElytra(player, interactionManager);
         }

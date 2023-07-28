@@ -1,12 +1,15 @@
 {
   "schemaVersion": 1,
   "id": "automaticelytra",
-  "version": "1.3",
+  "version": "${version}",
 
   "name": "Automatic Elytra",
   "description": "Automatic Elytra is a client side mod that will swap the players elytra and chestplate for them!",
   "authors": [
     "AreUThreateningMe"
+  ],
+  "contributors": [
+    "RazrCraft"
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/automatic-elytra",
@@ -14,7 +17,7 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/automaticelytra/icon.png",
+  "icon": "assets/automaticelytra/AutomaticElytraLogo.png",
 
   "environment": "*",
   "entrypoints": {
@@ -27,12 +30,9 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.11.6",
-    "fabric": "*",
-    "minecraft": "1.17.x",
-    "java": ">=16"
-  },
-  "suggests": {
-    "another-mod": "*"
-  }
+    "fabricloader": ">=0.14.21",
+    "fabric-api": ">=0.86.1+1.20.1",
+    "minecraft": "~1.20.1",
+    "java": ">=17"
+    }
 }

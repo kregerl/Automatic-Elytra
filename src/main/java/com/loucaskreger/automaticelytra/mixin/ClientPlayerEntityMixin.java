@@ -1,10 +1,10 @@
 package com.loucaskreger.automaticelytra.mixin;
 
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.ElytraItem;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
 import net.minecraft.screen.slot.SlotActionType;
@@ -17,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPlayerEntity.class)
 public class ClientPlayerEntityMixin {
-
     private static final int CHESTPLATE_INDEX = 6;
     private int lastIndex = -1;
 
@@ -29,12 +28,13 @@ public class ClientPlayerEntityMixin {
         ClientPlayerEntity player = (ClientPlayerEntity) (Object) this;
         ClientPlayerInteractionManager interactionManager = MinecraftClient.getInstance().interactionManager;
         // Injects when the elytra should be deployed
-        if (!player.isOnGround() && !player.isFallFlying() && !player.hasStatusEffect(StatusEffects.LEVITATION) && player.getInventory().armor.get(2).getItem() != Items.ELYTRA) {
+        if (!player.isOnGround() &&
+            !player.isFallFlying() &&
+            !player.hasStatusEffect(StatusEffects.LEVITATION)) { //&&
             // [Future] Replace with an event that fires before elytra take off.
             this.equipElytra(player, interactionManager);
         }
     }
-
 
     @Inject(method = "tickMovement", at = @At(value = "TAIL"))
     private void endTickMovement(CallbackInfo ci) {
@@ -66,7 +66,9 @@ public class ClientPlayerEntityMixin {
     private int getElytraIndex(ClientPlayerEntity player) {
         DefaultedList<ItemStack> inv = player.getInventory().main;
         for (int i = 0; i < inv.size(); i++) {
-            if (inv.get(i).getItem() == Items.ELYTRA) {
+            ItemStack var2 = inv.get(i);
+            // Avoid broken Elytras
+            if (var2.isOf(Items.ELYTRA) && ElytraItem.isUsable(var2)) {
                 return i;
             }
         }
